@@ -682,19 +682,6 @@
 		reagents.add_reagent(/datum/reagent/hyperzine, 5)
 		src.bitesize = 3
 
-/obj/item/weapon/reagent_containers/food/snacks/xenomeat
-	name = "meat"
-	desc = "A slab of green meat. Smells like acid."
-	icon_state = "xenomeat"
-	filling_color = "#43de18"
-	center_of_mass = "x=16;y=10"
-
-	New()
-		..()
-		reagents.add_reagent(/datum/reagent/nutriment/protein, 6)
-		reagents.add_reagent(/datum/reagent/acid/polyacid,6)
-		src.bitesize = 6
-
 /obj/item/weapon/reagent_containers/food/snacks/meatball
 	name = "meatball"
 	desc = "A great meal all round."
@@ -3334,3 +3321,14 @@
 	New()
 		..()
 		bitesize = 3
+
+/obj/item/weapon/reagent_containers/food/snacks/xenomeat
+	name = "meat"
+	desc = "A slab of meat"
+	icon_state = "xenomeat"
+	filling_color = "#43DE18"
+	center_of_mass = "x=16;y=10"
+	New()
+		..()
+		reagents.add_reagent("nutriment", 3)
+		src.bitesize = 6

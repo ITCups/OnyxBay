@@ -22,6 +22,100 @@
 
 /mob/living/proc/isSynthetic()
 	return 0
+proc/isXeno(A) //Xenomorph Hud Test APOPHIS 22MAY2015
+	if(istype(A, /mob/living/carbon/Xenomorph))
+		return 1
+	return 0
+
+proc/xeno_hivenumber(A)
+	if(isXeno(A))
+		var/mob/living/carbon/Xenomorph/X = A
+		return X.hivenumber
+	return 0
+
+proc/isXenoBoiler(A)
+	if(istype(A, /mob/living/carbon/Xenomorph/Boiler))
+		return 1
+	return 0
+
+proc/isXenoCarrier(A)
+	if(istype(A, /mob/living/carbon/Xenomorph/Carrier))
+		return 1
+	return 0
+
+proc/isXenoCrusher(A)
+	if(istype(A, /mob/living/carbon/Xenomorph/Crusher))
+		return 1
+	return 0
+
+proc/isXenoDrone(A)
+	if(istype(A, /mob/living/carbon/Xenomorph/Drone))
+		return 1
+	return 0
+
+proc/isXenoHivelord(A)
+	if(istype(A, /mob/living/carbon/Xenomorph/Hivelord))
+		return 1
+	return 0
+
+proc/isXenoHunter(A)
+	if(istype(A, /mob/living/carbon/Xenomorph/Lurker))
+		return 1
+	return 0
+
+proc/isXenoDefender(A)
+	if (istype(A, /mob/living/carbon/Xenomorph/Defender))
+		return 1
+	return 0
+
+proc/isXenoLarva(A) //Xenomorph Larva Hud Test APOPHIS 22MAY2015
+	if(istype(A, /mob/living/carbon/Xenomorph/Larva))
+		return 1
+	return 0
+
+proc/isXenoPraetorian(A)
+	if(istype(A, /mob/living/carbon/Xenomorph/Praetorian))
+		return 1
+	return 0
+
+proc/isXenoQueen(A)
+	if(istype(A, /mob/living/carbon/Xenomorph/Queen))
+		return 1
+	return 0
+
+proc/isXenoRavager(A)
+	if(istype(A, /mob/living/carbon/Xenomorph/Ravager))
+		return 1
+	return 0
+
+proc/isXenoRunner(A)
+	if(istype(A, /mob/living/carbon/Xenomorph/Runner))
+		return 1
+	return 0
+
+proc/isXenoSentinel(A)
+	if(istype(A, /mob/living/carbon/Xenomorph/Sentinel))
+		return 1
+	return 0
+
+proc/isXenoSpitter(A)
+	if(istype(A, /mob/living/carbon/Xenomorph/Spitter))
+		return 1
+	return 0
+
+proc/isXenoWarrior(A)
+	if (istype(A, /mob/living/carbon/Xenomorph/Warrior))
+		return 1
+	return 0
+
+proc/isYautja(A)
+	if(isHellhound(A))
+		return 1 //They are always considered Yautja.
+	if(ishuman(A))
+		var/mob/living/carbon/human/H = A
+		if(H.species.name == "Yautja")
+			return 1
+	return 0
 
 /mob/living/carbon/human/isSynthetic()
 	if(isnull(full_prosthetic))
@@ -622,3 +716,9 @@ proc/is_blind(A)
 			to_chat(src, "<span class='danger'>The jitters are killing you! You feel your heart beating out of your chest.</span>")
 			admin_victim_log(src, "has taken <i>minor heart damage</i> at jitteriness level [src.jitteriness].")
 	return 1
+
+/mob/proc/is_mob_incapacitated(ignore_restrained)
+	return (stat || stunned || knocked_down || knocked_out || (!ignore_restrained && is_mob_restrained()))
+
+/mob/proc/is_mob_restrained()
+	return

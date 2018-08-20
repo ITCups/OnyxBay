@@ -299,3 +299,16 @@
 
 	UNSETEMPTY(cloaking_sources)
 	return !cloaking_sources // If cloaking_sources wasn't initially null but is now, we've uncloaked
+
+/mob/living/carbon/human/is_mob_restrained(var/check_grab = 1) //marines adapt
+	if(check_grab && pulledby && pulledby.grab_level >= GRAB_NECK)
+		return 1
+	if (handcuffed)
+		return 1
+	if (istype(wear_suit, /obj/item/clothing/suit/straight_jacket))
+		return 1
+
+	if (istype(buckled, /obj/structure/bed/nest))
+		return 1
+
+	return 0

@@ -3,6 +3,14 @@
 #define UNCONSCIOUS 1
 #define DEAD        2
 
+//Some on_mob_life() procs check for alien races.
+#define IS_VOX 2
+#define IS_SKRELL 3
+#define IS_UNATHI 4
+#define IS_XENOS 5
+#define IS_YAUTJA 6
+#define IS_HORROR 7
+
 // Bitflags defining which status effects could be or are inflicted on a mob.
 #define CANSTUN     0x1
 #define CANWEAKEN   0x2
@@ -117,6 +125,19 @@
 #define MOB_SMALL 		10
 #define MOB_TINY 		5
 #define MOB_MINISCULE	1
+
+//defines for the busy icons when the mob does something that takes time using do_after proc
+#define BUSY_ICON_GENERIC	1
+#define BUSY_ICON_MEDICAL	2
+#define BUSY_ICON_BUILD		3
+#define BUSY_ICON_FRIENDLY	4
+#define BUSY_ICON_HOSTILE	5
+
+//Mob sizes
+#define MOB_SIZE_SMALL			0
+#define MOB_SIZE_HUMAN			1
+#define MOB_SIZE_XENO			2
+#define MOB_SIZE_BIG		3
 
 // Defines how strong the species is compared to humans. Think like strength in D&D
 #define STR_VHIGH       2

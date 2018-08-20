@@ -1527,3 +1527,12 @@ datum/admins/var/obj/item/weapon/paper/admin/faxreply // var to hold fax replies
 		qdel(P)
 		faxreply = null
 	return
+	
+/proc/msg_admin_ff(var/text)
+	log_attack(text) //Do everything normally BUT IN GREEN SO THEY KNOW
+	var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <font color=#00ff00><b>[text]</b></font></span>" //I used <font> because I never learned html correctly, fix this if you want
+	for(var/client/C in admins)
+		if(R_MOD & C.holder.rights)
+			if(C.prefs.toggles_chat & CHAT_FFATTACKLOGS)
+				var/msg = rendered
+				C << msg
