@@ -1,4 +1,4 @@
-//marines adapt
+//marines port
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)
 		return 0

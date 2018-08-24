@@ -52,7 +52,7 @@
 		if(F.stat == CONSCIOUS) count++
 		if(count > 2) //Was 5, our rules got much tighter
 			visible_message("<span class='xenowarning'>The facehugger is furiously cannibalized by the nearby horde of other ones!</span>")
-			cdel(src)
+			qdel(src)
 			return
 	if(stat == CONSCIOUS && loc) //Make sure we're conscious and not idle or dead.
 		if(check_lifecycle())
@@ -218,7 +218,7 @@
 
 	if(isXeno(loc)) //Being carried? Drop it
 		var/mob/living/carbon/Xenomorph/X = loc
-		X.drop_inv_item_on_ground(src)
+		X.drop_from_inventory(src)
 		X.update_icons()
 
 	if(isturf(M.loc)) loc = M.loc //Just checkin
@@ -254,7 +254,7 @@
 					cannot_infect = 1
 				else
 					H.visible_message("<span class='danger'>[src] smashes against [H]'s [D.name] and rips it off!")
-					H.drop_inv_item_on_ground(D)
+					H.drop_from_inventory(D)
 					if(istype(D, /obj/item/clothing/head/helmet/marine)) //Marine helmets now get a fancy overlay.
 						var/obj/item/clothing/head/helmet/marine/m_helmet = D
 						m_helmet.add_hugger_damage()
@@ -283,7 +283,7 @@
 					cannot_infect = 1
 				else
 					target.visible_message("<span class='danger'>[src] smashes against [target]'s [W.name] and rips it off!</span>")
-					target.drop_inv_item_on_ground(W)
+					target.drop_from_inventory(W)
 				if(W.anti_hug && prob(15)) //15% chance the hugger will go idle after ripping off a helmet. Otherwise it will keep going.
 					W.anti_hug = max(0, --W.anti_hug)
 					GoIdle()
@@ -345,14 +345,14 @@
 				E.status = GROWN
 				E.icon_state = "Egg"
 				E.deploy_egg_triggers()
-				cdel(src)
+				qdel(src)
 				return
 			var/obj/effect/alien/resin/trap/T = locate() in loc
 			if(T && !T.hugger)
 				visible_message("<span class='xenowarning'>[src] crawls into [T]!</span>")
 				T.hugger = TRUE
 				T.icon_state = "trap1"
-				cdel(src)
+				qdel(src)
 				return
 		Die()
 	else if(!attached || !ishuman(loc)) //doesn't age while attached
@@ -397,13 +397,13 @@
 
 	if(ismob(loc)) //Make it fall off the person so we can update their icons. Won't update if they're in containers thou
 		var/mob/M = loc
-		M.drop_inv_item_on_ground(src)
+		M.drop_from_inventory(src)
 
 	layer = BELOW_MOB_LAYER //so dead hugger appears below live hugger if stacked on same tile.
 
 	sleep(1800) //3 minute timer for it to decay
 	visible_message("\icon[src] <span class='danger'>\The [src] decays into a mass of acid and chitin.</span>")
-	cdel(src)
+	qdel(src)
 
 /proc/CanHug(mob/living/carbon/M)
 

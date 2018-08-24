@@ -120,14 +120,14 @@
 			else if(istype(T,/mob/living/carbon/human) && isturf(T.loc))
 				visible_message("<b>[src] reaches down and rips out \the [T]'s spinal cord and skull!</b>.","<b>You firmly grip the revealed spinal column and rip [T]'s head off!</b>")
 				var/mob/living/carbon/human/H = T
-				if(H.get_limb("head"))
+				if(H.get_organ("head"))
 					H.apply_damage(150,BRUTE,"head",0,1,1)
 				else
 					new /obj/item/weapon/reagent_containers/food/snacks/meat(T.loc)
 				new /obj/item/stack/material/animalhide/human(T.loc)
 				new /obj/effect/decal/remains/human(T.loc)
 			if(T.legcuffed)
-				T.drop_inv_item_on_ground(T.legcuffed)
+				T.drop_from_inventory(T.legcuffed)
 			T.butchery_progress = 5 //Won't really matter.
 			playsound(loc, 'sound/weapons/slice.ogg', 25)
 			src << "\blue You finish butchering!"

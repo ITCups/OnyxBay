@@ -331,7 +331,7 @@
 	var/mob/living/carbon/human/H = A
 	if(H.stat == DEAD) return
 	round_statistics.warrior_punches++
-	var/datum/limb/L = H.get_limb(check_zone(zone_selected))
+	var/obj/item/organ/external/L = H.get_organ(check_zone(src.zone_sel.selecting))
 
 	if (!L || (L.status & LIMB_DESTROYED))
 		return
@@ -433,7 +433,7 @@
 		return 0
 
 	var/mob/living/carbon/human/H = M
-	var/datum/limb/L = H.get_limb(check_zone(zone_selected))
+	var/obj/item/organ/external/L = H.get_organ(check_zone(src.zone_sel.selecting))
 
 	if (!L || L.body_part == UPPER_TORSO || L.body_part == LOWER_TORSO || (L.status & LIMB_DESTROYED)) //Only limbs and head.
 		src << "<span class='xenowarning'>You can't rip off that limb.</span>"
@@ -979,7 +979,7 @@
 					var/oldloc = DR.loc
 					visible_message("<span class='xenonotice'>\The [src] regurgitates a thick substance and thickens [DR].</span>", \
 						"<span class='xenonotice'>You regurgitate some resin and thicken [DR].</span>", null, 5)
-					cdel(DR)
+					qdel(DR)
 					new /obj/structure/mineral_door/resin/thick (oldloc)
 					playsound(loc, "alien_resin_build", 25)
 					use_plasma(resin_plasma_cost)
@@ -1017,7 +1017,7 @@
 
 	if(selected_resin == "resin door")
 		var/wall_support = FALSE
-		for(var/D in cardinal)
+		for(var/D in GLOB.cardinal)
 			var/turf/T = get_step(current_turf,D)
 			if(T)
 				if(T.density)
@@ -1062,7 +1062,7 @@
 
 	if(selected_resin == "resin door")
 		var/wall_support = FALSE
-		for(var/D in cardinal)
+		for(var/D in GLOB.cardinal)
 			var/turf/T = get_step(current_turf,D)
 			if(T)
 				if(T.density)
@@ -1189,7 +1189,7 @@
 			"<span class='xenowarning'>You vomit globs of vile stuff at \the [O]. It sizzles under the bubbling mess of acid!</span>", null, 5)
 		playsound(loc, "sound/bullets/acid_impact1.ogg", 25)
 		sleep(20)
-		cdel(A)
+		qdel(A)
 		return
 
 	if(isturf(O))

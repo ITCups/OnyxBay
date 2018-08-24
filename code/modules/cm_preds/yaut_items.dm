@@ -73,7 +73,7 @@
 			M << "<span class='warning'>You need to remove your glasses first. Why are you even wearing these?</span>"
 			return
 		M.temp_drop_inv_item(G) //Get rid of ye existinge gogglors
-		cdel(G)
+		qdel(G)
 	switch(current_goggles)
 		if(0)
 			M.equip_to_slot_or_del(rnew(/obj/item/clothing/glasses/night/yautja,M), WEAR_EYES)
@@ -107,7 +107,7 @@
 		if(G)
 			if(istype(G,/obj/item/clothing/glasses/night/yautja) || istype(G,/obj/item/clothing/glasses/meson/yautja) || istype(G,/obj/item/clothing/glasses/thermal/yautja))
 				mob.temp_drop_inv_item(G)
-				cdel(G)
+				qdel(G)
 				mob.update_inv_glasses()
 		var/datum/mob_hud/H = huds[MOB_HUD_MEDICAL_ADVANCED]
 		H.remove_hud_from(mob)
@@ -372,7 +372,7 @@
 			user << "<span class='warning'>Your hand must be free to activate your wrist blade!</span>"
 			return
 
-		var/datum/limb/hand = user.get_limb(user.hand ? "l_hand" : "r_hand")
+		var/obj/item/organ/external/hand = user.get_organ(user.hand ? "l_hand" : "r_hand")
 		if(!istype(hand) || !hand.is_usable())
 			user << "<span class='warning'>You can't hold that!</span>"
 			return
@@ -467,14 +467,14 @@
 			usr.r_hand = null
 			if(R)
 				M.temp_drop_inv_item(R)
-				cdel(R)
+				qdel(R)
 			M.update_inv_r_hand()
 		if(L && istype(L))
 			found = 1
 			usr.l_hand = null
 			if(L)
 				M.temp_drop_inv_item(L)
-				cdel(L)
+				qdel(L)
 			M.update_inv_l_hand()
 		if(found)
 			usr << "<span class='notice'>You deactivate your plasma caster.</span>"
@@ -626,7 +626,7 @@
 	for(var/mob/living/simple_animal/hostile/smartdisc/S in range(7))
 		usr << "<span class='warning'>The [S] skips back towards you!</span>"
 		new /obj/item/explosive/grenade/spawnergrenade/smartdisc(S.loc)
-		cdel(S)
+		qdel(S)
 
 	for(var/obj/item/explosive/grenade/spawnergrenade/smartdisc/D in range(10))
 		D.throw_at(usr,10,1,usr)
@@ -688,7 +688,7 @@
 
 	New()
 		..()
-		cdel(keyslot1)
+		qdel(keyslot1)
 		keyslot1 = new /obj/item/device/encryptionkey/yautja
 		recalculateChannels()
 
@@ -766,7 +766,7 @@
 				if(ismob(loc))
 					user = loc
 					user.temp_drop_inv_item(src)
-				cdel(src)
+				qdel(src)
 			return
 
 		if(sure == "No" || !sure) return
@@ -809,15 +809,15 @@
 	New()
 		..()
 		l_color = "#FFFF0C" //Yeller
-		SetLuminosity(4)
+		luminosity =4
 		spawn(3000)
 			if(ticker && istype(ticker.mode,/datum/game_mode/huntergames)) loop_firetick()
 
 
-	proc/loop_firetick() //Crackly!
+	proc/loop_firetick() //Crackly! 
 		while(src && ticker)
-			SetLuminosity(0)
-			SetLuminosity(rand(3,4))
+			luminosity = 0
+			luminosity = rand(3,4)
 			sleep(rand(15,30))
 
 //=================//\\=================\\
@@ -924,7 +924,7 @@
 	attack_verb = list("whipped", "slashed","sliced","diced","shredded")
 
 	attack(mob/target as mob, mob/living/user as mob)
-		if(user.zone_selected == "r_leg" || user.zone_selected == "l_leg" || user.zone_selected == "l_foot" || user.zone_selected == "r_foot")
+		if(user.zone_sel.selecting == "r_leg" || user.zone_sel.selecting == "l_leg" || user.zone_sel.selecting == "l_foot" || user.zone_sel.selecting == "r_foot")
 			if(prob(35) && !target.lying)
 				if(isXeno(target))
 					if(target.mob_size == MOB_SIZE_BIG) //Can't trip the big ones.
@@ -963,7 +963,7 @@
 
 		if(do_after(user,50, TRUE, 5, BUSY_ICON_FRIENDLY))
 			var/obj/item/shard/shrapnel/S
-			for(var/datum/limb/O in user.limbs)
+			for(var/obj/item/organ/external/O in user.limbs)
 				for(S in O.implants)
 					user << "<span class='notice'>You dig shrapnel out of your [O.name].</span>"
 					S.loc = user.loc
@@ -1045,15 +1045,15 @@
 		if(!isYautja(user))
 			if(prob(20))
 				user.visible_message("<span class='warning'>[src] slips out of your hands!</span>")
-				user.drop_inv_item_on_ground(src)
+				user.drop_tiem(src)
 				return
 		..()
 		if(ishuman(target)) //Slicey dicey!
 			if(prob(14))
-				var/datum/limb/affecting
-				affecting = target:get_limb(ran_zone(user.zone_selected,60))
+				var/obj/item/organ/external/affecting
+				affecting = target:get_organ(ran_zone(user.zone_sel.selecting,60))
 				if(!affecting)
-					affecting = target:get_limb(ran_zone(user.zone_selected,90)) //No luck? Try again.
+					affecting = target:get_organ(ran_zone(user.zone_sel.selecting,90)) //No luck? Try again.
 				if(affecting)
 					if(affecting.body_part != UPPER_TORSO && affecting.body_part != LOWER_TORSO) //as hilarious as it is
 						user.visible_message("<span class='danger'>The limb is sliced clean off!</span>","<span class='danger'>You slice off a limb!</span>")
@@ -1200,7 +1200,7 @@
 			var/turf/T = get_turf(src)
 			if(ispath(spawner_type))
 				new spawner_type(T)
-//		cdel(src)
+//		qdel(src)
 		return
 
 	check_eye(mob/user)

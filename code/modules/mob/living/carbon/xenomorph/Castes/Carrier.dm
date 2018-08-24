@@ -74,7 +74,7 @@
 		if(F.stat == CONSCIOUS && !F.sterile)
 			huggers_cur++
 			src << "<span class='notice'>You store the facehugger and carry it for safekeeping. Now sheltering: [huggers_cur] / [huggers_max].</span>"
-			cdel(F)
+			qdel(F)
 		else
 			src << "<span class='warning'>This [F.name] looks too unhealthy.</span>"
 	else
@@ -93,7 +93,7 @@
 		if(isturf(F.loc) && Adjacent(F))
 			if(F.hivenumber != hivenumber)
 				src << "<span class='warning'>That facehugger is tainted!</span>"
-				drop_inv_item_on_ground(F)
+				drop_from_inventory(F)
 				return
 			store_hugger(F)
 			return
@@ -120,7 +120,7 @@
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.update_button_icon()
-		drop_inv_item_on_ground(F)
+		drop_from_inventory(F)
 		F.throw_at(T, 4, throwspeed)
 		visible_message("<span class='xenowarning'>\The [src] throws something towards \the [T]!</span>", \
 		"<span class='xenowarning'>You throw a facehugger towards \the [T]!</span>")
@@ -140,7 +140,7 @@
 		if(stat == CONSCIOUS)
 			eggs_cur++
 			src << "<span class='notice'>You store the egg and carry it for safekeeping. Now sheltering: [eggs_cur] / [eggs_max].</span>"
-			cdel(E)
+			qdel(E)
 		else
 			src << "<span class='warning'>This [E.name] looks too unhealthy.</span>"
 	else

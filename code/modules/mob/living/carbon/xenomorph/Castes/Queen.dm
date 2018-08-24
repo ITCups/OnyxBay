@@ -167,7 +167,7 @@
 								visible_message("<span class='xenodanger'>[L] quickly burrows into the ground.</span>")
 								ticker.mode.stored_larva++
 								round_statistics.total_xenos_created-- // keep stats sane
-								cdel(L)
+								qdel(L)
 
 
 //Custom bump for crushers. This overwrites normal bumpcode from carbon.dm
@@ -196,9 +196,9 @@
 	r_TRU
 
 //Chance of insta limb amputation after a melee attack.
-/mob/living/carbon/Xenomorph/Queen/proc/delimb(var/mob/living/carbon/human/H, var/datum/limb/O)
+/mob/living/carbon/Xenomorph/Queen/proc/delimb(var/mob/living/carbon/human/H, var/obj/item/organ/external/O)
 	if (prob(20))
-		O = H.get_limb(check_zone(zone_selected))
+		O = H.get_organ(check_zone(src.zone_sel.selecting))
 		if (O.body_part != UPPER_TORSO && O.body_part != LOWER_TORSO && O.body_part != HEAD) //Only limbs.
 			visible_message("<span class='danger'>The limb is sliced clean off!</span>","<span class='danger'>You slice off a limb!</span>")
 			O.droplimb()
@@ -386,7 +386,7 @@
 		return
 
 	if(isSynth(victim))
-		var/datum/limb/head/synthhead = victim.get_limb("head")
+		var/obj/item/organ/external/head/synthhead = victim.get_organ("head")
 		if(synthhead.status & LIMB_DESTROYED)
 			return
 
@@ -438,7 +438,7 @@
 	ovipositor = TRUE
 
 	for(var/datum/action/A in actions)
-		cdel(A)
+		qdel(A)
 
 	var/list/immobile_abilities = list(\
 		/datum/action/xeno_action/regurgitate,\
@@ -493,7 +493,7 @@
 		zoom_out()
 
 		for(var/datum/action/A in actions)
-			cdel(A)
+			qdel(A)
 
 		var/list/mobile_abilities = list(
 			/datum/action/xeno_action/xeno_resting,
@@ -618,7 +618,7 @@
 		observed_xeno = target
 		if(old_xeno)
 			old_xeno.hud_set_queen_overwatch()
-	if(!target.disposed) //not cdel'd
+	if(!target.disposed) //not qdel'd
 		target.hud_set_queen_overwatch()
 	reset_view()
 

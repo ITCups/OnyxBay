@@ -69,7 +69,7 @@
 	if(!castepick) //Changed my mind
 		return
 
-	if(!isturf(loc)) //cdel'd or inside something
+	if(!isturf(loc)) //qdel'd or inside something
 		return
 
 	if(is_mob_incapacitated(TRUE))
@@ -206,7 +206,7 @@
 	"<span class='xenonotice'>You begin to twist and contort.</span>")
 	xeno_jitter(25)
 	if(do_after(src, 25, FALSE, 5, BUSY_ICON_HOSTILE))
-		if(!isturf(loc)) //cdel'd or moved into something
+		if(!isturf(loc)) //qdel'd or moved into something
 			return
 		if(castepick == "Queen") //Do another check after the tick.
 			if(jobban_isbanned(src, "Queen"))
@@ -223,7 +223,7 @@
 			//Something went horribly wrong!
 			usr << "<span class='warning'>Something went terribly wrong here. Your new xeno is null! Tell a coder immediately!</span>"
 			if(new_xeno)
-				cdel(new_xeno)
+				qdel(new_xeno)
 			return
 
 		if(mind)
@@ -250,7 +250,7 @@
 		new_xeno.middle_mouse_toggle = middle_mouse_toggle //Keep our toggle state
 
 		for(var/obj/item/W in contents) //Drop stuff
-			drop_inv_item_on_ground(W)
+			drop_from_inventory(W)
 
 		empty_gut()
 		new_xeno.visible_message("<span class='xenodanger'>A [new_xeno.caste] emerges from the husk of \the [src].</span>", \
@@ -267,7 +267,7 @@
 
 		if(hive.living_xeno_queen && hive.living_xeno_queen.observed_xeno == src)
 			hive.living_xeno_queen.set_queen_overwatch(new_xeno)
-		cdel(src)
+		qdel(src)
 		new_xeno.xeno_jitter(25)
 	else
 		src << "<span class='warning'>You quiver, but nothing happens. Hold still while evolving.</span>"

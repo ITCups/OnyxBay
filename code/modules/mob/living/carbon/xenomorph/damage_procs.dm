@@ -125,7 +125,7 @@
 		var/obj/effect/decal/cleanable/blood/xeno/decal = locate(/obj/effect/decal/cleanable/blood/xeno) in T
 
 		if(!decal) //Let's not stack blood, it just makes lagggggs.
-			add_splatter_floor(T) //Drop some on the ground first.
+			T.drip(1,src) //Drop some on the ground first.
 		else
 			if(decal.random_icon_states && length(decal.random_icon_states) > 0) //If there's already one, just randomize it so it changes.
 				decal.icon_state = pick(decal.random_icon_states)
@@ -147,6 +147,6 @@
 				i++
 				victim.visible_message("<span class='danger'>\The [victim] is scalded with hissing green blood!</span>", \
 				"<span class='danger'>You are splattered with sizzling blood! IT BURNS!</span>")
-				if(prob(60) && !victim.stat && !(victim.species.flags & NO_PAIN))
+				if(prob(60) && !victim.stat && !(victim.species.flags & SPECIES_FLAG_NO_PAIN))
 					victim.emote("scream") //Topkek
-				victim.take_limb_damage(0, rand(10, 25)) //Sizzledam! This automagically burns a random existing body part.
+				victim.take_overall_damage(0, rand(10, 25)) //Sizzledam! This automagically burns a random existing body part.

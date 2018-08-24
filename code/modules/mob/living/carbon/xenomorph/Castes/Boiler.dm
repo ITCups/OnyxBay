@@ -50,16 +50,16 @@
 
 	New()
 		..()
-		SetLuminosity(3)
+		luminosity = 3
 		smoke = new /datum/effect_system/smoke_spread/xeno_acid
 		smoke.attach(src)
 		see_in_dark = 20
 		ammo = ammo_list[/datum/ammo/xeno/boiler_gas]
 
 	Dispose()
-		SetLuminosity(0)
+		luminosity = 0
 		if(smoke)
-			cdel(smoke)
+			qdel(smoke)
 			smoke = null
 		. = ..()
 

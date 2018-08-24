@@ -290,12 +290,12 @@
 	if(mob_size == MOB_SIZE_BIG)
 		damage += 10
 
-	var/datum/limb/affecting
-	affecting = M.get_limb(ran_zone("head", 50))
+	var/obj/item/organ/external/affecting
+	affecting = M.get_organ(ran_zone("head", 50))
 	if(!affecting) //No head? Just get a random one
-		affecting = M.get_limb(ran_zone(null, 0))
+		affecting = M.get_organ(ran_zone(null, 0))
 	if(!affecting) //Still nothing??
-		affecting = M.get_limb("chest") //Gotta have a torso?!
+		affecting = M.get_organ("chest") //Gotta have a torso?!
 	var/armor_block = M.run_armor_check(affecting, "melee")
 
 	flick_attack_overlay(M, "slash") //TODO: Special bite attack overlay ?
@@ -318,12 +318,12 @@
 	if(mob_size == MOB_SIZE_BIG)
 		damage += 10
 
-	var/datum/limb/affecting
-	affecting = M.get_limb(ran_zone(zone_selected, 75))
+	var/obj/item/organ/external/affecting
+	affecting = M.get_organ(ran_zone(src.zone_sel.selecting, 75))
 	if(!affecting) //No organ, just get a random one
-		affecting = M.get_limb(ran_zone(null, 0))
+		affecting = M.get_organ(ran_zone(null, 0))
 	if(!affecting) //Still nothing??
-		affecting = M.get_limb("chest") // Gotta have a torso?!
+		affecting = M.get_organ("chest") // Gotta have a torso?!
 	var/armor_block = M.run_armor_check(affecting, "melee")
 
 	flick_attack_overlay(M, "tail")

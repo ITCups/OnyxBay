@@ -4,7 +4,7 @@
 	but only these items and guns benefit from it. ~N
 	####################################################################*/
 
-//marines adapt
+//marines port
 
 /obj/item/weapon/twohanded
 	var/force_wielded 	= 0
@@ -36,7 +36,7 @@
 	if(ishuman(user))
 		var/check_hand = user.r_hand == src ? "l_hand" : "r_hand"
 		var/mob/living/carbon/human/wielder = user
-		var/datum/limb/hand = wielder.get_limb(check_hand)
+		var/obj/item/organ/external/hand = wielder.get_organ(check_hand)
 		if( !istype(hand) || !hand.is_usable() )
 			user << "<span class='warning'>Your other hand can't hold [src]!</span>"
 			return
@@ -103,11 +103,11 @@
 	unwield(var/mob/user)
 		if(flags_item & WIELDED)
 			flags_item &= ~WIELDED
-			user.temp_drop_inv_item(src)
-			cdel(src)
+			user.drop_from_inventory(src)
+			qdel(src)
 
 	wield()
-		cdel(src) //This shouldn't even happen.
+		qdel(src) //This shouldn't even happen.
 
 	Dispose()
 		..()
@@ -156,7 +156,7 @@
 	if(!proximity) return
 	..()
 	if(A && (flags_item & WIELDED) && istype(A,/obj/structure/grille)) //destroys grilles in one hit
-		cdel(A)
+		qdel(A)
 
 /*
  * Double-Bladed Energy Swords - Cheridan

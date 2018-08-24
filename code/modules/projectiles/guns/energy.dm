@@ -302,7 +302,7 @@ GLOBAL_LIST_INIT(registered_weapons, list())
 /obj/item/weapon/gun/energy/plasmarifle/load_into_chamber()
 	ammo = ammo_list[charge_time < 15? /datum/ammo/energy/yautja/rifle/bolt : /datum/ammo/energy/yautja/rifle/blast]
 	var/obj/item/projectile/P = create_bullet(ammo)
-	P.SetLuminosity(1)
+	P.luminosity =1
 	in_chamber = P
 	charge_time = round(charge_time / 2)
 	return in_chamber
@@ -312,7 +312,7 @@ GLOBAL_LIST_INIT(registered_weapons, list())
 	return 1
 
 /obj/item/weapon/gun/energy/plasmarifle/delete_bullet(obj/item/projectile/projectile_to_fire, refund = 0)
-	cdel(projectile_to_fire)
+	qdel(projectile_to_fire)
 	if(refund) charge_time *= 2
 	return 1
 
@@ -333,7 +333,7 @@ GLOBAL_LIST_INIT(registered_weapons, list())
 
 
 
-//marines adapt
+//marines port
 
 /obj/item/weapon/gun/energy/plasmapistol
 	name = "plasma pistol"
@@ -402,7 +402,7 @@ GLOBAL_LIST_INIT(registered_weapons, list())
 /obj/item/weapon/gun/energy/plasmapistol/load_into_chamber()
 	if(charge_time < 1) return
 	var/obj/item/projectile/P = create_bullet(ammo)
-	P.SetLuminosity(1)
+	P.luminosity = 1
 	in_chamber = P
 	charge_time -= 1
 	return in_chamber
@@ -411,7 +411,7 @@ GLOBAL_LIST_INIT(registered_weapons, list())
 	return 1
 
 /obj/item/weapon/gun/energy/plasmapistol/delete_bullet(obj/item/projectile/projectile_to_fire, refund = 0)
-	cdel(projectile_to_fire)
+	qdel(projectile_to_fire)
 	if(refund) charge_time *= 2
 	return 1
 
@@ -510,7 +510,7 @@ GLOBAL_LIST_INIT(registered_weapons, list())
 	return 1
 
 /obj/item/weapon/gun/energy/plasma_caster/delete_bullet(obj/item/projectile/projectile_to_fire, refund = 0)
-	cdel(projectile_to_fire)
+	qdel(projectile_to_fire)
 	if(refund)
 		source.charge += charge_cost
 		var/perc = source.charge / source.charge_max * 100

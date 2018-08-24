@@ -99,7 +99,7 @@
 			M.flick_attack_overlay(src, "slash")
 
 			var/obj/item/organ/external/affecting = null
-			affecting = get_organ(ran_zone(M.zone_selected,70))
+			affecting = get_organ(ran_zone(M.zone_sel.selecting,70))
 			if(!affecting) //No organ, just get a random one
 				affecting = get_organ(ran_zone(null, 0))
 			if(!affecting) //Still nothing??
@@ -107,7 +107,7 @@
 
 			var/armor_block = run_armor_check(affecting, "melee")
 
-			if(isYautja(src) && check_zone(M.zone_selected) == "head")
+			if(isYautja(src) && check_zone(M.zone_sel.selecting) == "head")
 				if(istype(wear_mask, /obj/item/clothing/mask/gas/yautja))
 					var/knock_chance = 1
 					if(M.frenzy_aura > 0)
@@ -513,7 +513,7 @@
 	if(prob(33))
 		M.visible_message("<span class='danger'>\The [M] slices [src] apart!</span>", \
 		"<span class='danger'>You slice [src] apart!</span>", null, 5)
-		cdel(src)
+		qdel(src)
 		return 1
 	else
 		M.visible_message("<span class='danger'>\The [M] tears some shreds off [src]!</span>", \
@@ -636,7 +636,7 @@
 			return 0 //Make sure we're still there
 		M.visible_message("<span class='danger'>[M] rips down \the [src]!</span>", \
 		 "<span class='danger'>You rip down \the [src]!</span>", null, 5)
-		cdel(src)
+		qdel(src)
 
 //Xenomorphs can't use machinery, not even the "intelligent" ones
 //Exception is Queen and shuttles, because plot power
@@ -753,7 +753,7 @@
 			playsound(src, "shatter", 70, 1)
 			damaged = TRUE
 			if(is_lit)
-				SetLuminosity(0)
+				luminosity =0
 			update_icon()
 		else
 			playsound(loc, 'sound/effects/Glasshit.ogg', 25, 1)
@@ -801,7 +801,7 @@
 	M.visible_message("<span class='danger'>\The [M] smashes \the [src] apart!</span>", \
 	"<span class='danger'>You smash \the [src] apart!</span>", \
 	"<span class='danger'>You hear splitting wood!</span>", 5)
-	cdel(src)
+	qdel(src)
 
 /obj/structure/closet/attack_alien(mob/living/carbon/Xenomorph/M)
 	if(M.a_intent == "hurt" && !unacidable)

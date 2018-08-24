@@ -15,12 +15,12 @@
 /mob/living/carbon/Xenomorph
 	var/list/overlays_standing[X_TOTAL_LAYERS]
 
-/mob/living/carbon/Xenomorph/apply_overlay(cache_index)
+/mob/living/carbon/Xenomorph/proc/apply_overlay(cache_index)
 	var/image/I = overlays_standing[cache_index]
 	if(I)
 		overlays += I
 
-/mob/living/carbon/Xenomorph/remove_overlay(cache_index)
+/mob/living/carbon/Xenomorph/proc/remove_overlay(cache_index)
 	if(overlays_standing[cache_index])
 		overlays -= overlays_standing[cache_index]
 		overlays_standing[cache_index] = null
@@ -92,7 +92,7 @@
 	if(targeted_by && target_locked)
 		overlays_standing[X_TARGETED_LAYER]	= image("icon" = target_locked, "layer" =-X_TARGETED_LAYER)
 	else if(!targeted_by && target_locked)
-		cdel(target_locked)
+		qdel(target_locked)
 		target_locked = null
 	if(!targeted_by || src.stat == DEAD)
 		overlays_standing[X_TARGETED_LAYER]	= null

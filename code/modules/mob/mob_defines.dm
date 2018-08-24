@@ -157,7 +157,8 @@
 	var/stunned = 0
 	var/weakened = 0
 	var/drowsyness = 0.0//Carbon
-	//marines adapt
+	
+	//marines port
 	var/knocked_out = 0.0
 	var/knocked_down = 0.0
 

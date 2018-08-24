@@ -49,23 +49,23 @@
 		return 0
 
 	if(on_fire)
-		SetLuminosity(min(fire_stacks,5)) // light up xenos
+		luminosity = min(fire_stacks,5) // light up xenos
 		var/obj/item/clothing/mask/facehugger/F = get_active_hand()
 		var/obj/item/clothing/mask/facehugger/G = get_inactive_hand()
 		if(istype(F))
 			F.Die()
-			drop_inv_item_on_ground(F)
+			drop_from_inventory(F)
 		if(istype(G))
 			G.Die()
-			drop_inv_item_on_ground(G)
+			drop_from_inventory(G)
 		if(!fire_immune)
 			adjustFireLoss(fire_stacks + 3)
 
 	else
 		if(isXenoBoiler(src))
-			SetLuminosity(3) // needs a less hacky way of doing this, like a default luminosity var
+			luminosity = 3 // needs a less hacky way of doing this, like a default luminosity var
 		else
-			SetLuminosity(0)
+			luminosity = 0
 
 	if(health <= 0) //Sleeping Xenos are also unconscious, but all crit Xenos are under 0 HP. Go figure
 		var/turf/T = loc
@@ -163,10 +163,10 @@
 			AdjustKnockedout(-3)
 			blinded = 1
 			stat = UNCONSCIOUS
-			if(halloss > 0)
+			if(getHalLoss() > 0)
 				adjustHalLoss(-3)
 		else if(sleeping)
-			if(halloss > 0)
+			if(getHalLoss() > 0)
 				adjustHalLoss(-3)
 			if(mind)
 				if((mind.active && client != null) || immune_to_ssd)
@@ -176,7 +176,7 @@
 		else
 			blinded = 0
 			stat = CONSCIOUS
-			if(halloss > 0)
+			if(getHalLoss() > 0)
 				if(resting)
 					adjustHalLoss(-3)
 				else
@@ -204,7 +204,7 @@
 				if(M.acid_damage > 300)
 					src << "<span class='xenodanger'>\The [M] is dissolved in your gut with a gurgle.</span>"
 					stomach_contents.Remove(M)
-					cdel(M)
+					qdel(M)
 	return 1
 
 /mob/living/carbon/Xenomorph/proc/handle_regular_hud_updates()
