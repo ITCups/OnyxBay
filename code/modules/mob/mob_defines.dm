@@ -11,6 +11,11 @@
 	var/list/client_images = list() // List of images applied to/removed from the client on login/logout
 	var/datum/mind/mind
 
+	//marines port
+	var/list/hud_list[10]
+	var/immune_to_ssd = 0
+	var/atom/movable/interactee //the thing that the mob is currently interacting with (e.g. a computer, another mob (stripping a mob), manning a hmg)
+
 	var/lastKnownIP = null
 	var/computer_id = null
 

@@ -94,7 +94,7 @@
 		if(charge_speed > charge_speed_buildup * charge_turfs_to_charge)
 			visible_message("<span class='danger'>[src] rams into [B] and skids to a halt!</span>",
 			"<span class='xenowarning'>You ram into [B] and skid to a halt!</span>")
-			flags_pass = 0
+			pass_flags = 0
 			update_icons()
 			B.Bumped(src)
 			stop_momentum(charge_dir)
@@ -108,7 +108,7 @@
 		if(charge_speed > charge_speed_buildup * charge_turfs_to_charge)
 			visible_message("<span class='danger'>[src] rams into [H.root] and skids to a halt!</span>",
 			"<span class='xenowarning'>You ram into [H.root] and skid to a halt!</span>")
-			flags_pass = 0
+			pass_flags = 0
 			update_icons()
 			H.root.Bumped(src)
 			stop_momentum(charge_dir)

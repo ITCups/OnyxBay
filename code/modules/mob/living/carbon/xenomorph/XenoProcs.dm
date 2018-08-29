@@ -429,7 +429,7 @@
 	charge_speed = 0
 	charge_roar = 0
 	lastturf = null
-	flags_pass = 0
+	pass_flags = 0
 	update_icons()
 
 //Why the elerloving fuck was this a Crusher only proc ? AND WHY IS IT NOT CAST ON THE RECEIVING ATOM ? AAAAAAA

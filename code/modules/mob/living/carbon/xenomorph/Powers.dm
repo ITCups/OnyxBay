@@ -37,14 +37,14 @@
 	visible_message("<span class='xenowarning'>\The [src] pounces at [T]!</span>", \
 	"<span class='xenowarning'>You pounce at [T]!</span>")
 	usedPounce = 1
-	flags_pass = PASSTABLE
+	pass_flags = PASS_FLAG_TABLE
 	use_plasma(10)
 	throw_at(T, 6, 2, src) //Victim, distance, speed
 	spawn(6)
 		if(!hardcore)
-			flags_pass = initial(flags_pass) //Reset the passtable.
+			pass_flags = initial(pass_flags) //Reset the passtable.
 		else
-			flags_pass = 0 //Reset the passtable.
+			pass_flags = 0 //Reset the passtable.
 
 	spawn(pounce_delay)
 		usedPounce = 0

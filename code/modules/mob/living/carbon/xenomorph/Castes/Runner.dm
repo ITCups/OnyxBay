@@ -19,7 +19,7 @@
 	speed = -1.8
 	evolves_to = list("Lurker")
 	charge_type = 1 //Pounce - Runner
-	flags_pass = PASSTABLE
+	pass_flags = PASS_FLAG_TABLE
 	attack_delay = -4
 	tier = 1
 	upgrade = 0
