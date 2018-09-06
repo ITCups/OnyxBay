@@ -285,6 +285,31 @@
 #define SPECIES_EGYNO       "Egyno"
 #define SPECIES_XENO        "Xenophage"
 
+//marines port
+
+// =============================
+// hive types
+
+#define XENO_HIVE_NORMAL 1
+#define XENO_HIVE_CORRUPTED 2
+#define XENO_HIVE_ALPHA 3
+#define XENO_HIVE_BETA 4
+#define XENO_HIVE_ZETA 5
+
+
+///////////////////LIMB DEFINES///////////////////
+
+#define LIMB_BLEEDING 1
+#define LIMB_BROKEN 2
+#define LIMB_DESTROYED 4 //limb is missing
+#define LIMB_ROBOT 8
+#define LIMB_SPLINTED 16
+#define LIMB_NECROTIZED 32 //necrotizing limb, nerves are dead.
+#define LIMB_MUTATED 64 //limb is deformed by mutations
+#define LIMB_AMPUTATED 128 //limb was amputated cleanly or destroyed limb was cleaned up, thus causing no pain
+#define LIMB_REPAIRED 256 //we just repaired the bone, stops the gelling after setting
+
+
 #define SURGERY_CLOSED 0
 #define SURGERY_OPEN 1
 #define SURGERY_RETRACTED 2

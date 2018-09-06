@@ -457,3 +457,14 @@ var/const/CLICK_HANDLER_ALL                  = (~0)
 	click_handler = new new_click_handler_type(src)
 	click_handler.Enter()
 	click_handlers.Push(click_handler)
+
+//marines port
+/client/proc/change_view(new_size)
+	view = new_size
+	apply_clickcatcher()
+	mob.reload_fullscreens()
+
+/client/proc/apply_clickcatcher()
+	create_clickcatcher()
+	var/list/actual_view = getviewsize(view)
+	void.UpdateGreed(actual_view[1],actual_view[2])

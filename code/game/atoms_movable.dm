@@ -266,3 +266,24 @@
 		var/turf/T = locate(new_x, new_y, new_z)
 		if(T)
 			forceMove(T)
+
+//marines port
+/atom/movable/proc/spin_circle(var/num_circles = 1, var/turn_delay = 1, var/clockwise = 0, var/cardinal_only = 1)
+	set waitfor = 0
+
+	if (num_circles < 1 || turn_delay < 1)
+		return
+
+	var/spin_degree = 90
+	num_circles *= 4
+
+	if (!cardinal_only)
+		spin_degree = 45
+		num_circles *= 2
+
+	if (clockwise)
+		spin_degree *= -1
+
+	for (var/x = 0, x < num_circles, x++)
+		sleep(turn_delay)
+		dir = turn(dir, spin_degree)

@@ -921,10 +921,10 @@
 	var/sound_to_play = pick(1, 2) == 1 ? 'sound/voice/alien_spitacid.ogg' : 'sound/voice/alien_spitacid2.ogg'
 	playsound(src.loc, sound_to_play, 25, 1)
 
-	var/obj/item/projectile/A = rnew(/obj/item/projectile, current_turf)
+	var/obj/item/projectile/A = new /obj/item/projectile(current_turf)
 	A.generate_bullet(ammo)
 	A.permutated += src
-	A.def_zone = get_limbzone_target()
+	A.def_zone = get_organ_target()
 	A.fire_at(T, src, null, ammo.max_range, ammo.shell_speed)
 	has_spat = world.time + spit_delay + ammo.added_spit_delay
 	use_plasma(ammo.spit_cost)
@@ -1000,12 +1000,12 @@
 	if(!istype(current_turf) || !current_turf.is_weedable())
 		src << "<span class='warning'>You can't do that here.</span>"
 		return
-
+	/*
 	var/area/AR = get_area(current_turf)
 	if(istype(AR,/area/shuttle/drop1/lz1) || istype(AR,/area/shuttle/drop2/lz2) || istype(AR,/area/sulaco/hangar)) //Bandaid for atmospherics bug when Xenos build around the shuttles
 		src << "<span class='warning'>You sense this is not a suitable area for expanding the hive.</span>"
 		return
-
+	*/
 	var/obj/effect/alien/weeds/alien_weeds = locate() in current_turf
 
 	if(!alien_weeds)
@@ -1049,10 +1049,11 @@
 	if(!istype(current_turf) || !current_turf.is_weedable())
 		return
 
+	/*
 	AR = get_area(current_turf)
 	if(istype(AR,/area/shuttle/drop1/lz1 || istype(AR,/area/shuttle/drop2/lz2)) || istype(AR,/area/sulaco/hangar)) //Bandaid for atmospherics bug when Xenos build around the shuttles
 		return
-
+	*/
 	alien_weeds = locate() in current_turf
 	if(!alien_weeds)
 		return

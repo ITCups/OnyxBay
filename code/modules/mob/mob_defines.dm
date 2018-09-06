@@ -15,6 +15,9 @@
 	var/list/hud_list[10]
 	var/immune_to_ssd = 0
 	var/atom/movable/interactee //the thing that the mob is currently interacting with (e.g. a computer, another mob (stripping a mob), manning a hmg)
+	var/action_busy //whether the mob is currently doing an action that takes time (do_after or do_mob procs)
+	var/frozen = 0.0
+
 
 	var/lastKnownIP = null
 	var/computer_id = null
